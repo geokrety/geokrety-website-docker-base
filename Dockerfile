@@ -52,7 +52,6 @@ RUN apt-get update \
     && locale-gen
 
 WORKDIR /var/www/html
-USER www-data
 
 # Install site
 ONBUILD ARG GIT_COMMIT='unspecified'
