@@ -51,8 +51,6 @@ RUN apt-get update \
     \
     && locale-gen
 
-WORKDIR /var/www/html
-
 # Install site
 ONBUILD ARG GIT_COMMIT='unspecified'
 ONBUILD ADD --chown=www-data:www-data website/ /var/www/html/
