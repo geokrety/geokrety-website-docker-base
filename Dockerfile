@@ -2,7 +2,7 @@ FROM php:5.6-apache
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
-ARG SMARTY_VERSION=2.6.30
+ARG SMARTY_VERSION=3.1.33
 ARG TIMEZONE=Europe/Paris
 
 # Configure
