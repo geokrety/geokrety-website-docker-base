@@ -1,8 +1,7 @@
-FROM php:5.6-apache
+FROM php:7.3-apache
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
-ARG SMARTY_VERSION=3.1.33
 ARG TIMEZONE=Europe/Paris
 
 # Configure
@@ -27,14 +26,14 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
-    && docker-php-ext-install gettext mysqli mcrypt pdo_mysql bz2 \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
+    && docker-php-ext-install gettext mysqli pdo_mysql bz2 \
+    && pecl install imagick mcrypt-1.0.2 \
+    && docker-php-ext-enable imagick mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && a2enmod rewrite \
     \
-    && pecl install -o -f redis-4.3.0 \
+    && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
     \
