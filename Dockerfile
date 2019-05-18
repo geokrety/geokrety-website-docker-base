@@ -40,16 +40,7 @@ RUN apt-get update \
     \
     && echo 'date.timezone = "${TIMEZONE}"' > /usr/local/etc/php/conf.d/timezone.ini \
     && echo 'sendmail_path = "/usr/sbin/ssmtp -t"' > /usr/local/etc/php/conf.d/mail.ini \
-    \
-    && mkdir /usr/share/php \
-    && curl -sS -L https://github.com/smarty-php/smarty/archive/v${SMARTY_VERSION}.tar.gz | tar xzf - -C /usr/share/php/ \
-    && ln -s /usr/share/php/smarty-${SMARTY_VERSION} /usr/share/php/smarty \
-    \
-    && cd /usr/share/php/smarty/libs/plugins/ \
-    && curl -sS -L -O https://raw.githubusercontent.com/smarty-gettext/smarty-gettext/master/block.t.php \
-    && curl -sS -L -O https://github.com/smarty-gettext/smarty-gettext/raw/master/function.locale.php \
-    && chmod a+r /usr/share/php/smarty/libs/plugins/block.t.php /usr/share/php/smarty/libs/plugins/function.locale.php \
-    && cd \
+    && echo 'upload_max_filesize = 8M' > /usr/local/etc/php/conf.d/upload.ini \
     \
     && curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
     \
