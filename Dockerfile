@@ -34,6 +34,10 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && a2enmod rewrite \
     \
+    && pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    && docker-php-ext-enable redis \
+    \
     && echo 'date.timezone = "${TIMEZONE}"' > /usr/local/etc/php/conf.d/timezone.ini \
     && echo 'sendmail_path = "/usr/sbin/ssmtp -t"' > /usr/local/etc/php/conf.d/mail.ini \
     \
