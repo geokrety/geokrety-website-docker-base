@@ -34,7 +34,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && a2enmod rewrite \
     \
-    && pecl install -o -f redis \
+    && pecl install -o -f redis-4.3.0 \
     &&  rm -rf /tmp/pear \
     && docker-php-ext-enable redis \
     \
