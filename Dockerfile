@@ -15,6 +15,7 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
+        libxslt-dev \
         graphicsmagick-imagemagick-compat \
         ssmtp \
         locales \
@@ -26,7 +27,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
-    && docker-php-ext-install gettext mysqli pdo_mysql bz2 \
+    && docker-php-ext-install gettext mysqli pdo_mysql bz2 xsl \
     && pecl install imagick mcrypt-1.0.2 \
     && docker-php-ext-enable imagick mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
