@@ -16,6 +16,8 @@ RUN apt-get update \
         libmcrypt-dev \
         libpng-dev \
         libxslt-dev \
+        libcurl4-openssl-dev \
+        libssl-dev \
         graphicsmagick-imagemagick-compat \
         ssmtp \
         locales \
@@ -28,8 +30,10 @@ RUN apt-get update \
     && rm -r /var/lib/apt/lists/* \
     \
     && docker-php-ext-install gettext mysqli pdo_mysql bz2 xsl \
-    && pecl install imagick mcrypt-1.0.2 \
-    && docker-php-ext-enable imagick mcrypt \
+    && pecl install raphf propro \
+    && docker-php-ext-enable raphf propro \
+    && pecl install imagick mcrypt-1.0.2 pecl_http \
+    && docker-php-ext-enable imagick mcrypt http \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && a2enmod rewrite \
