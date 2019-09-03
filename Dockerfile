@@ -51,7 +51,6 @@ RUN apt-get update \
     && locale-gen
 
 # Install site
-ONBUILD ARG GIT_COMMIT='unspecified'
+ONBUILD ARG GIT_COMMIT='undef'
 ONBUILD ADD --chown=www-data:www-data website/ /var/www/html/
-ONBUILD RUN composer install --no-scripts \
-    && echo $GIT_COMMIT > /var/www/html/git-version
+ONBUILD RUN composer install --no-scripts
