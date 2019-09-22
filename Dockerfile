@@ -50,7 +50,9 @@ RUN apt-get update \
     \
     && locale-gen
 
+WORKDIR /var/www/geokrety
 # Install site
 ONBUILD ARG GIT_COMMIT='undef'
-ONBUILD ADD --chown=www-data:www-data website/ /var/www/html/
-ONBUILD RUN composer install --no-scripts
+ONBUILD ADD --chown=www-data:www-data . /var/www/geokrety
+ONBUILD RUN composer global install --no-scripts -d /var/www/geokrety \
+    && composer install --no-scripts -d /var/www/geokrety/website
