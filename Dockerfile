@@ -53,6 +53,3 @@ RUN apt-get update \
 WORKDIR /var/www/geokrety/website
 # Install site
 ONBUILD ARG GIT_COMMIT='undef'
-ONBUILD ADD --chown=www-data:www-data . /var/www/geokrety/
-ONBUILD RUN composer global install --no-scripts -d /var/www/geokrety \
-    && composer install --no-scripts -d /var/www/geokrety/website
