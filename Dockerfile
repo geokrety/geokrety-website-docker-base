@@ -50,6 +50,5 @@ RUN apt-get update \
     \
     && locale-gen
 
-WORKDIR /var/www/geokrety/website/www
 # Install site
 ONBUILD ARG GIT_COMMIT='undef'
