@@ -15,6 +15,7 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
+        libpq-dev \
         libxslt-dev \
         libcurl4-openssl-dev \
         libssl-dev \
@@ -30,7 +31,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
-    && docker-php-ext-install gettext mysqli pdo_mysql bz2 xsl \
+    && docker-php-ext-install gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl \
     && pecl install raphf propro \
     && docker-php-ext-enable raphf propro \
     && pecl install imagick mcrypt-1.0.3 pecl_http \
@@ -47,7 +48,10 @@ RUN apt-get update \
     && echo 'sendmail_path = "/usr/sbin/msmtp -t"' > /usr/local/etc/php/conf.d/mail.ini \
     && echo 'upload_max_filesize = 8M' > /usr/local/etc/php/conf.d/upload.ini \
     \
-    && curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/
+    && curl -sSL https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
+    \
+    && curl -sSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc \
+    && chmod +x /usr/local/bin/mc
 
 # Install other files
 COPY files/ /
