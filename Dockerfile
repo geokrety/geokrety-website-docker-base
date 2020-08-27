@@ -20,6 +20,7 @@ RUN apt-get update \
         libcurl4-openssl-dev \
         libssl-dev \
         graphicsmagick-imagemagick-compat \
+        httping \
         msmtp \
         supervisor \
         locales \
