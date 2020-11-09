@@ -29,6 +29,7 @@ RUN apt-get update \
         curl \
         git \
         zip \
+        postgresql-client \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
