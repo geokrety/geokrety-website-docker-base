@@ -33,7 +33,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
-    && docker-php-ext-install gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl \
+    && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl \
     && pecl install raphf propro \
     && docker-php-ext-enable raphf propro \
     && pecl install imagick mcrypt-1.0.3 pecl_http \
