@@ -36,7 +36,7 @@ RUN apt-get update \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl \
     && pecl install raphf propro \
     && docker-php-ext-enable raphf propro \
-    && pecl install imagick mcrypt-1.0.3 pecl_http \
+    && pecl install imagick mcrypt-1.0.3 pecl_http-3.2.4 \
     && docker-php-ext-enable imagick mcrypt http \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
