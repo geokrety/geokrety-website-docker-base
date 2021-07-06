@@ -40,6 +40,8 @@ RUN apt-get update \
     && docker-php-ext-enable imagick mcrypt http \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache \
     && a2enmod rewrite \
     \
     && pecl install -o -f redis \
