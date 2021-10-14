@@ -27,6 +27,9 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
+    && sed -i 's/mozilla\/DST_Root_CA_X3.crt/!mozilla\/DST_Root_CA_X3.crt/g' /etc/ca-certificates.conf \
+    && update-ca-certificates \
+    \
     && docker-php-ext-install gettext mysqli mcrypt pdo_mysql bz2 \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
