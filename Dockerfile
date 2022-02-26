@@ -62,9 +62,6 @@ RUN apt-get update \
     && chmod +x /usr/local/bin/php-fpm-healthcheck \
     && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
-HEALTHCHECK --start-period=5s --interval=30s --timeout=5s --retries=3 \
-  CMD /usr/local/bin/php-fpm-healthcheck -v || exit 1
-
 # Install other files
 COPY files/ /
 
