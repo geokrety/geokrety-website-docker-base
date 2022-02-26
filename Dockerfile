@@ -1,4 +1,4 @@
-FROM php:7.4-apache-buster
+FROM php:7.4-fpm-buster
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
@@ -22,7 +22,6 @@ RUN apt-get update \
         graphicsmagick-imagemagick-compat \
         httping \
         msmtp \
-        supervisor \
         locales \
         gettext \
         vim \
@@ -30,8 +29,11 @@ RUN apt-get update \
         git \
         zip \
         postgresql-client \
+        libfcgi-bin \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
+    \
+    && echo "set mouse-=a" > /etc/vim/vimrc.local \
     \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl pcntl \
     && pecl install raphf propro \
@@ -42,7 +44,6 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache \
-    && a2enmod rewrite \
     \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -55,7 +56,14 @@ RUN apt-get update \
     && curl -sSL https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
     \
     && curl -sSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc \
-    && chmod +x /usr/local/bin/mc
+    && chmod +x /usr/local/bin/mc \
+    \
+    && curl -sSL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck -o /usr/local/bin/php-fpm-healthcheck \
+    && chmod +x /usr/local/bin/php-fpm-healthcheck \
+    && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
+HEALTHCHECK --start-period=5s --interval=30s --timeout=5s --retries=3 \
+  CMD /usr/local/bin/php-fpm-healthcheck -v || exit 1
 
 # Install other files
 COPY files/ /
