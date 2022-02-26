@@ -4,9 +4,6 @@ LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
 ARG TIMEZONE=Europe/Paris
 
-# Configure
-COPY files/etc/locale.gen /etc/locale.gen
-
 # Add extension to php
 RUN apt-get update \
     && apt-get install -y \
@@ -61,6 +58,10 @@ RUN apt-get update \
     && curl -sSL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck -o /usr/local/bin/php-fpm-healthcheck \
     && chmod +x /usr/local/bin/php-fpm-healthcheck \
     && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
+# Configure
+COPY files/etc/locale.gen /etc/locale.gen
+RUN locale-gen
 
 # Install other files
 COPY files/ /
