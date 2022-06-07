@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-buster
+FROM php:8.1.6-fpm-bullseye
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
@@ -34,9 +34,9 @@ RUN apt-get update \
     && echo "syn on" >> /root/.vimrc \
     \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl pcntl \
-    && pecl install raphf propro \
-    && docker-php-ext-enable raphf propro pcntl \
-    && pecl install imagick mcrypt-1.0.3 pecl_http-3.2.4 \
+    && pecl install raphf \
+    && docker-php-ext-enable raphf pcntl \
+    && pecl install mcrypt imagick pecl_http \
     && docker-php-ext-enable imagick mcrypt http \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
