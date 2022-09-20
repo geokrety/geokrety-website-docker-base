@@ -30,7 +30,8 @@ RUN apt-get update \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
-    && echo -e "set mouse-=a\nsyn on" > /root/.vimrc \
+    && echo "set mouse-=a" > /root/.vimrc \
+    && echo "syn on" >> /root/.vimrc \
     \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl pcntl \
     && pecl install raphf propro \
