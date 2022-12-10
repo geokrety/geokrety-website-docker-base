@@ -42,6 +42,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache \
+    && docker-php-ext-install sockets \
     \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
