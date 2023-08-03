@@ -1,4 +1,4 @@
-FROM php:8.1.6-fpm-bullseye
+FROM php:8.2.8-fpm-bullseye
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
