@@ -21,9 +21,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set output
+        id: vars
+        run: |
+          echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+
       - name: Build and push - base
         uses: docker/build-push-action@v4
         with:
           file: Dockerfile.base
           push: true
-          tags: geokrety/website-base:latest
+          tags: geokrety/website-base:${{ steps.vars.outputs.short_ref }}
