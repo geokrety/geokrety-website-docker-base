@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/geokrety/geokrety-website-docker-base/compare/v1.0.1...v1.0.2) (2023-08-04)
+
+
+### Chores
+
+* Fix pre-commit issues ([eaea31f](https://github.com/geokrety/geokrety-website-docker-base/commit/eaea31fab8bf9ed7391dd604d46dd5fca55a5327))
+
 ## [1.0.1](https://github.com/geokrety/geokrety-website-docker-base/compare/v1.0.0...v1.0.1) (2023-08-04)
 
 ## 1.0.0 (2023-08-04)
