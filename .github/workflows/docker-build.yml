@@ -5,6 +5,9 @@ on:
     tags:
       - '*'
 
+env:
+  BASE_IMAGE_NAME: geokrety/website-base
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -24,11 +27,24 @@ jobs:
       - name: Set output
         id: vars
         run: |
-          echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+          short_ref=${GITHUB_REF#refs/*/}
+          echo "short_ref=${short_ref}" >> $GITHUB_OUTPUT
+          echo "short_ref is $short_ref."
+
+          declare -a raw
+          raw=($(git branch -r --contains ${{ github.ref }}))
+          declare -a base_tags
+          for br in "${raw[@]}"; do
+            branch="${br##*/}"
+            echo "Found branch=${branch}"
+            base_tags+=("${BASE_IMAGE_NAME}:${branch}")
+          done
+          echo "base_tags=$(IFS=, ; echo "${base_tags[*]}")" >> $GITHUB_OUTPUT
+          echo "Will use base_tags: $(IFS=, ; echo "${base_tags[*]}")"
 
       - name: Build and push - base
         uses: docker/build-push-action@v4
         with:
           file: Dockerfile
           push: true
-          tags: geokrety/website-base:${{ steps.vars.outputs.short_ref }}
+          tags: ${{ steps.vars.outputs.base_tags }},${BASE_IMAGE_NAME}:${{ steps.vars.outputs.short_ref }}
