@@ -39,7 +39,7 @@ jobs:
 
       - name: New tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GIT_AUTHOR_NAME: geokrety-bot
           GIT_AUTHOR_EMAIL: geokrety-bot@users.noreply.github.com
           GIT_COMMITTER_NAME: geokrety-bot
