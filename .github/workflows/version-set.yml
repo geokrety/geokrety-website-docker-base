@@ -18,10 +18,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: geokrety/geokrety-website
+          ref: main
+
+      - name: Get values
+        id: vars
+        run: |
+          echo "version=${GITHUB_REF_NAME#v}" | tee -a $GITHUB_OUTPUT
 
       - name: Bump base tag in Dockerfile
         run: |
-          sed -i 's/^ARG BASE_TAG=/ARG BASE_TAG=${{ steps.vars.outputs.version }}/' Dockerfile
+          sed -i 's/^ARG BASE_TAG=.*$/ARG BASE_TAG=${{ steps.vars.outputs.version }}/' Dockerfile
 
       - name: Create Pull Request
         id: cpr
