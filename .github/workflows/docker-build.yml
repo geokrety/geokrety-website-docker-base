@@ -20,8 +20,15 @@ jobs:
     secrets:
       dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
 
+  update-version-set:
+    uses: geokrety/geokrety-gha-workflows/.github/workflows/version-set.yml@main
+    needs: docker
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
   update-website-base:
     runs-on: ubuntu-latest
+    needs: docker
     steps:
       - name: Checkout website repository
         uses: actions/checkout@v3
@@ -45,13 +52,13 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           add-paths: Dockerfile
           commit-message: |
-            feat: Bump Dockerfile base tag to ${{ steps.vars.outputs.version }}
+            feat: Bump geokrety/website-base base image to ${{ steps.vars.outputs.version }}
           committer: geokrety-bot <geokrety-bot@users.noreply.github.com>
           author: geokrety-bot <geokrety-bot@users.noreply.github.com>
           branch: deployment/docker-tag/${{ steps.vars.outputs.version }}
           delete-branch: true
           title: |
-            Bump Dockerfile base tag to ${{ steps.vars.outputs.version }}
+            Bump geokrety/website-base tag to ${{ steps.vars.outputs.version }}
           labels: version-set
           assignees: kumy
           reviewers: kumy
