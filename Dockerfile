@@ -59,7 +59,9 @@ RUN apt-get update \
     \
     && curl -sSL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck -o /usr/local/bin/php-fpm-healthcheck \
     && chmod +x /usr/local/bin/php-fpm-healthcheck \
-    && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+    \
+    && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf \
+    && echo "pm.max_children = 10" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Configure
 COPY files/etc/locale.gen /etc/locale.gen
