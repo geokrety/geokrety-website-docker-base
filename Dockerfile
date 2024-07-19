@@ -23,6 +23,7 @@ RUN apt-get update \
         gettext \
         vim \
         curl \
+        wget \
         git \
         zip \
         postgresql-client \
