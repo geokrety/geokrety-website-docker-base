@@ -54,8 +54,7 @@ RUN apt-get update \
     \
     && curl -sSL https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
     \
-    && echo "curl -sSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc" \
-    && curl -sSL https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2024-06-24T19-40-33Z -o /usr/local/bin/mc \
+    && curl -sSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc \
     && chmod +x /usr/local/bin/mc \
     \
     && curl -sSL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck -o /usr/local/bin/php-fpm-healthcheck \
