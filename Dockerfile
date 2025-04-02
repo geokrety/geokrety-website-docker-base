@@ -7,43 +7,50 @@ ARG TIMEZONE=Europe/Paris
 # Add extension to php
 RUN apt-get update \
     && apt-get install -y \
-        libmagickwand-dev \
+        curl \
+        gettext \
+        git \
+        graphicsmagick-imagemagick-compat \
+        httping \
+        libcurl4-openssl-dev \
+        libfcgi-bin \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
+        libmagickwand-dev \
         libmcrypt-dev \
         libpng-dev \
         libpq-dev \
-        libxslt-dev \
-        libcurl4-openssl-dev \
         libssl-dev \
-        graphicsmagick-imagemagick-compat \
-        httping \
-        msmtp \
+        libxslt-dev \
+        libzip-dev \
         locales \
-        gettext \
-        vim \
-        curl \
-        wget \
-        git \
-        zip \
+        msmtp \
         postgresql-client \
-        libfcgi-bin \
+        vim \
+        wget \
+        zip \
     && apt-get clean \
     && rm -r /var/lib/apt/lists/* \
     \
     && echo "set mouse-=a" > /root/.vimrc \
-    && echo "syn on" >> /root/.vimrc \
+    && echo "syn on" >> /root/.vimrc
+
+ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+# See https://github.com/Imagick/imagick/issues/643#issuecomment-2086949716
+RUN install-php-extensions \
+        Imagick/imagick@ffa23eb0bc6796349dce12a984b3b70079e7bdd3 \
     \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl pcntl \
     && pecl install raphf \
     && docker-php-ext-enable raphf pcntl \
-    && pecl install mcrypt imagick pecl_http \
-    && docker-php-ext-enable imagick mcrypt http \
+    && pecl install mcrypt pecl_http \
+    && docker-php-ext-enable mcrypt http \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache \
     && docker-php-ext-install sockets \
+    && docker-php-ext-install zip \
     \
     && pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
