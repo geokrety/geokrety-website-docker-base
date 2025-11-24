@@ -30,7 +30,7 @@ jobs:
     needs: docker
     steps:
       - name: Checkout website repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: geokrety/geokrety-website
           ref: main
