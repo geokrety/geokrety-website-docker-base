@@ -1,4 +1,4 @@
-FROM php:8.3.10-fpm-bullseye
+FROM php:8.4.18-fpm-trixie
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
@@ -35,10 +35,8 @@ RUN apt-get update \
     && echo "set mouse-=a" > /root/.vimrc \
     && echo "syn on" >> /root/.vimrc
 
-ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-# See https://github.com/Imagick/imagick/issues/643#issuecomment-2086949716
-RUN install-php-extensions \
-        Imagick/imagick@ffa23eb0bc6796349dce12a984b3b70079e7bdd3 \
+RUN printf "\n" | pecl install imagick \
+    && docker-php-ext-enable imagick \
     \
     && docker-php-ext-install bcmath gettext mysqli pdo_mysql pgsql pdo_pgsql bz2 xsl pcntl \
     && pecl install raphf \
