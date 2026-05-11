@@ -1,4 +1,4 @@
-FROM php:8.4.18-fpm-trixie
+FROM php:8.5.6-fpm-trixie
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
