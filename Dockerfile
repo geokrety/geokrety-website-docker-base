@@ -1,3 +1,5 @@
+FROM reg.mini.dev/minio:latest AS minio-client
+
 FROM php:8.4.27-fpm-trixie
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
@@ -60,14 +62,13 @@ RUN printf "\n" | pecl install imagick \
     \
     && curl -sSL https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
     \
-    && curl -sSL https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc \
-    && chmod +x /usr/local/bin/mc \
-    \
     && curl -sSL https://raw.githubusercontent.com/renatomefi/php-fpm-healthcheck/master/php-fpm-healthcheck -o /usr/local/bin/php-fpm-healthcheck \
     && chmod +x /usr/local/bin/php-fpm-healthcheck \
     \
     && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf \
     && echo "pm.max_children = 10" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+
+COPY --from=minio-client --chmod=0755 /usr/bin/mc /usr/local/bin/mc
 
 # Configure
 COPY files/etc/locale.gen /etc/locale.gen
