@@ -59,6 +59,7 @@ RUN printf "\n" | pecl install imagick \
     && echo 'date.timezone = "${TIMEZONE}"' > /usr/local/etc/php/conf.d/timezone.ini \
     && echo 'sendmail_path = "/usr/sbin/msmtp -t"' > /usr/local/etc/php/conf.d/mail.ini \
     && echo 'upload_max_filesize = 8M' > /usr/local/etc/php/conf.d/upload.ini \
+    && echo 'session.upload_progress.enabled = Off' > /usr/local/etc/php/conf.d/upload.ini \
     \
     && curl -sSL https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin/ \
     \
