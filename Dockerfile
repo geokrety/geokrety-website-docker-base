@@ -1,4 +1,4 @@
-FROM reg.mini.dev/minio:latest AS minio-client
+FROM pgsty/mc:latest AS minio-client
 
 FROM php:8.4.27-fpm-trixie
 
