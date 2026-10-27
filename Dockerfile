@@ -67,7 +67,8 @@ RUN printf "\n" | pecl install imagick \
     && chmod +x /usr/local/bin/php-fpm-healthcheck \
     \
     && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf \
-    && echo "pm.max_children = 10" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+    && echo "pm.max_children = 10" >> /usr/local/etc/php-fpm.d/zz-docker.conf \
+    && echo "php_admin_flag[session.upload_progress.enabled] = off" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 COPY --from=minio-client --chmod=0755 /usr/bin/mc /usr/local/bin/mc
 
