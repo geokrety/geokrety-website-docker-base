@@ -1,6 +1,6 @@
 FROM pgsty/mc:latest AS minio-client
 
-FROM php:8.4.27-fpm-trixie
+FROM php:8.4.28-fpm-trixie
 
 LABEL maintainer="GeoKrety Team <contact@geokrety.org>"
 
